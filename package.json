@@ -1,0 +1,14 @@
+{
+	"name": "ts",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "https://xuanlongvts@bitbucket.org/xuanlongvts/ts.git",
+	"author": "xuanlongvts@gmail.com",
+	"license": "MIT",
+	"devDependencies": {
+		"typescript": "^4.2.3"
+	},
+	"scripts": {
+		"build": "tsc --noEmitOnError"
+	}
+}
