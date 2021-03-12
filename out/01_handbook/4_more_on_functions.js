@@ -195,3 +195,7 @@ const fun_2 = () => true;
 const fun_3 = function () {
     return true;
 };
+function fun_4() {
+    console.log("func 4");
+    // return true; // error
+}
