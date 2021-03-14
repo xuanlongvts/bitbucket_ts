@@ -88,3 +88,45 @@ function doStuff_2(value) {
 }
 // init ReadonlyArray
 const roArr_1 = ["1", "2", "3"];
+let arr_x_1 = [];
+let arr_y_1 = [];
+arr_x_1 = arr_y_1;
+function doSomething_5(pair) {
+    const one = pair[0];
+    const two = pair[1];
+    console.log("one: ", one, ", two: ", two);
+}
+doSomething_5(["hi", 42]);
+// destructure
+function doSomething_6(stringHash) {
+    const [intpuStr, hash] = stringHash;
+    console.log("inputStr: ", intpuStr);
+    console.log("hash: ", hash);
+}
+doSomething_6(["mot", 23234]);
+function setCoordinate_1(coord) {
+    console.log("length: ", coord.length); // length 2 | 3
+}
+const rest_1 = ["hi", 1];
+const rest_2 = ["nice", true, false, true, 2];
+const rest_3 = [true, false, true, false, true, "world", 3];
+console.log("rest_1: ", rest_1);
+console.log("rest_2: ", rest_2);
+console.log("rest_3: ", rest_3);
+// exa 2
+function readButtonInput_1(name, version, ...input) { }
+// can rewrite
+function readButtonInput_2(...args) {
+    const [name, version, ...input] = args;
+    console.log(name, version, input);
+}
+//-- readonly tuple types
+function doSomeThing_4(pair) {
+    // pair[0] = "hi"; // error
+}
+let point = [3, 4];
+function distanceFromOrigin([x, y]) {
+    return Math.sqrt(x ** 2 + y ** 2);
+}
+// The type 'readonly [3, 4]' is 'readonly' and cannot be assigned to the mutable type '[number, number]'.ts(2345)
+// distanceFromOrigin(point);
