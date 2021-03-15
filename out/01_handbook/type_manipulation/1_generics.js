@@ -45,3 +45,23 @@ function getProperties_1(obj, key) {
 let x_pro_1 = { a: 1, b: 2, c: 3, d: 4 };
 getProperties_1(x_pro_1, "a");
 // getProperties_1(x_pro_1, "m"); // error Argument of type '"m"' is not assignable to parameter of type '"a" | "b" | "c" | "d"'.
+// -------------------------------- Using Class Types in Generics
+function create_1(c) {
+    return new c();
+}
+// another way
+class BeeKeeper {
+}
+class ZooKeeper {
+}
+class Animal {
+}
+class Bee extends Animal {
+}
+class Lion extends Animal {
+}
+function createInstance(c) {
+    return new c();
+}
+createInstance(Lion).keeper.nametag;
+createInstance(Bee).keeper.hasMask;

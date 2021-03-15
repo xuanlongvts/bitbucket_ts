@@ -65,12 +65,12 @@ type User_1 = Concrete<MaybeUser_1>;
 type Getters<T> = {
 	[Property in keyof T as `get${Capitalize<string & Property>}`]: () => T[Property];
 };
-interface Person_2 {
+interface Person_2_2 {
 	name: string;
 	age: number;
 	location: string;
 }
-type LazyPerson = Getters<Person_2>;
+type LazyPerson = Getters<Person_2_2>;
 /*
 	type LazyPerson = {
 		getName: () => string;
