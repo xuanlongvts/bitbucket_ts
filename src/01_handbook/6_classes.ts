@@ -332,3 +332,159 @@ class S_1 {
 	static name_1 = 10;
 }
 console.log(S_1.name_1);
+
+// -------------------------------- Generic classes
+class Box_4<T> {
+	content: T;
+	constructor(val: T) {
+		this.content = val;
+	}
+}
+const getBox_4 = new Box_4("hi");
+console.log(getBox_4.content);
+
+//-- Type parameters in Static Members
+class Box_5<Type> {
+	// static defaultValue: Type; // Static members cannot reference class type parameters.ts(2302)
+	static defaultValue: number;
+}
+
+// -------------------------------- this at Runtime in Classes
+class MyClass_4 {
+	name = "Myclass";
+	getName() {
+		return this.name;
+	}
+}
+const initMyClass_4 = new MyClass_4();
+const obj_4 = {
+	name: "obj_4",
+	getName: initMyClass_4.getName,
+};
+console.log(obj_4.getName());
+
+//-- arrow functions
+class MyClass_5 {
+	name = "MyClass 5";
+
+	getName = () => {
+		return this.name;
+	};
+}
+const initMyClass_5 = new MyClass_5();
+const obj_5 = {
+	name: "obj_5",
+	getName: initMyClass_5.getName,
+};
+console.log("obj_5: ", obj_5.getName()); // MyClass 5
+
+//-- this paramters
+class MyClass_6 {
+	name = "MyClass 6";
+	getName(this: MyClass_6) {
+		return this.name;
+	}
+}
+const initMyClass_6 = new MyClass_6();
+initMyClass_6.getName();
+
+const copy_MyClass_6 = initMyClass_6.getName;
+// console.log(copy_MyClass_6()); // The 'this' context of type 'void' is not assignable to method's 'this' of type 'MyClass_6'.ts(2684)
+
+// -------------------------------- this types
+class Box_9 {
+	contents: string = "";
+	set(val: string) {
+		this.contents = val;
+		return this;
+	}
+}
+class ClearableBox extends Box_9 {
+	clear() {
+		this.contents = "";
+	}
+}
+const initClearableBox = new ClearableBox();
+const getClearableBox = initClearableBox.set("hi");
+console.log(getClearableBox);
+
+class Box_10 {
+	content: string = "";
+	sameAs(other: this) {
+		return other.content === this.content;
+	}
+}
+class Derived_10 extends Box_10 {
+	// otherContent: string = ""; // error
+	//   Property 'otherContent' is missing in type 'Box_10' but required in type 'Derived_10'.ts(2345)
+	content: string = "";
+}
+
+const initBox_10 = new Box_10();
+const initDer_10 = new Derived_10();
+initDer_10.sameAs(initBox_10);
+
+// -------------------------------- Parameter Properties
+class A_4 {
+	constructor(public readonly x: number, protected y: number, private z: number) {}
+}
+const getA_4 = new A_4(1, 2, 3);
+console.log("A_4 x: ", getA_4.x);
+/* Error
+console.log("A_4 y: ", getA_4.y);
+console.log("A_4 x: ", getA_4.z);
+ */
+
+// -------------------------------- Class expression
+const someClass_1 = class<T> {
+	content: T;
+	constructor(value: T) {
+		this.content = value;
+	}
+};
+console.log(new someClass_1("hi, NN"));
+
+// -------------------------------- abstract Classes and Members
+abstract class Base_9 {
+	abstract getName(): string;
+
+	printName() {
+		console.log("hi: ", this.getName());
+	}
+}
+// const initBase_9 = new Base_9(); // Cannot create an instance of an abstract class.ts(2511)
+class Derived_9 extends Base_9 {
+	getName() {
+		return "World";
+	}
+}
+// class Derived_9_1 extends Base_9 {} // error Non-abstract class 'Derived_9_1' does not implement inherited abstract member 'getName' from class 'Base_9'.ts(2515)
+
+//-- abstract construct signatures
+function greet_1_1(ctor: typeof Base_9) {
+	// const instance = new ctor(); // Cannot create an instance of an abstract class.ts(2511)
+}
+
+function greet_2_2(ctor: new () => Base_9) {
+	const instace = new ctor();
+	instace.printName();
+}
+greet_2_2(Derived_9);
+
+// -------------------------------- Relationships between classes
+class Points_2 {
+	x = 0;
+	y = 0;
+}
+class Points_3 {
+	x = 1;
+	y = 2;
+	z = 3;
+}
+const initP: Points_2 = new Points_3();
+
+class Empty_1 {}
+function func_5(x: Empty_1) {}
+func_5(window);
+func_5({});
+func_5(func_5);
